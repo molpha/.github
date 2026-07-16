@@ -6,7 +6,8 @@
 
 **Pull-native threshold oracle protocol** — turn any HTTP/API into threshold-signed, chain-agnostic verified on-chain data. No feed listings. No approvals. No governance token.
 
-[![npm](https://img.shields.io/npm/v/@molpha-oracle/sdk?label=%40molpha-oracle%2Fsdk&color=000000)](https://www.npmjs.com/package/@molpha-oracle/sdk)
+[![npm](https://img.shields.io/npm/v/@molpha-oracle/sdk?label=%40molpha-oracle%2Fsdk&color=d42c2c)](https://www.npmjs.com/package/@molpha-oracle/sdk)
+[![crate](https://img.shields.io/crates/v/molpha-verifier?&label=molpha-verifier&color=ffc933)](https://crates.io/crates/molpha-verifier)
 [![Testnet](https://img.shields.io/badge/network-Albyn%20testnet-22c55e)](#status)
 [![Follow on X](https://img.shields.io/badge/follow-%40molpha__oracle-1DA1F2?logo=x&logoColor=white)](https://x.com/molpha_oracle)
 
