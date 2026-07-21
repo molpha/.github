@@ -8,7 +8,7 @@ Permissionless oracle infrastructure for **smart contracts** and **AI agents**.
 
 No feed approvals. No protocol token. One SDK.
 
-[![npm](https://img.shields.io/npm/v/@molpha-oracle/sdk?label=%40molpha-oracle%2Fsdk&color=d42c2c)](https://www.npmjs.com/package/@molpha-oracle/sdk)
+[![npm](https://img.shields.io/npm/v/@molpha/sdk?label=%40molpha%2Fsdk&color=d42c2c)](https://www.npmjs.com/package/@molpha/sdk)
 [![crate](https://img.shields.io/crates/v/molpha-verifier?label=molpha-verifier&color=ffc933)](https://crates.io/crates/molpha-verifier)
 [![MCP](https://img.shields.io/badge/MCP-available-22c55e)](https://github.com/molpha)
 [![Follow on X](https://img.shields.io/badge/follow-%40molpha__oracle-1DA1F2?logo=x&logoColor=white)](https://x.com/molpha_oracle)
