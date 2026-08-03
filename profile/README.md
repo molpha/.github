@@ -41,7 +41,8 @@ There is nothing to create or register. Feed identity is derived deterministical
 | [`sdk`](https://github.com/molpha/sdk) | TypeScript consumer SDK — [`@molpha/sdk`](https://www.npmjs.com/package/@molpha/sdk) on npm |
 | [`mcp`](https://github.com/molpha/mcp) | MCP server for AI agents |
 | [`molpha-verifier`](https://github.com/molpha/molpha-verifier) | Rust verification library — [`molpha-verifier`](https://crates.io/crates/molpha-verifier) on crates.io |
-| [`evm-verifier`](https://github.com/molpha/evm-verifier) | Solidity verification library |
+| [`evm-verifier`](https://github.com/molpha/evm-verifier) | Solidity verifier contract |
+| [`starknet-verifier`](https://github.com/molpha/starknet-verifier) | Cairo verifier contract |
 | [`docs`](https://github.com/molpha/docs) | Documentation source for [docs.molpha.io](https://docs.molpha.io) |
 
 More components open as milestones ship — releases are codenamed after Carpathian peaks, A → Z. See [Releases & Roadmap](https://docs.molpha.io/resources/releases).
