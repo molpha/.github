@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   review:
-    # Non-draft PRs from branches of this repo only: fork runs get no secrets.
+    # Non-draft PRs from branches of this repo only: fork runs are not reviewed.
     if: >-
       github.event_name == 'pull_request'
       && !github.event.pull_request.draft
@@ -27,8 +27,6 @@ jobs:
     uses: molpha/.github/.github/workflows/claude-review.yml@v1
     with:
       model: claude-sonnet-5-5
-    secrets:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
   mention:
     if: >-
@@ -43,5 +41,3 @@ jobs:
     uses: molpha/.github/.github/workflows/claude-mention.yml@v1
     with:
       model: claude-sonnet-5-5
-    secrets:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
