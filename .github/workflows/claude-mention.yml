@@ -13,9 +13,6 @@ on:
         description: Upper bound on agent turns for one reply
         type: string
         default: "30"
-    secrets:
-      ANTHROPIC_API_KEY:
-        required: true
 
 jobs:
   mention:
@@ -33,7 +30,12 @@ jobs:
 
       - uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Workload identity federation: no API key. The IDs are org Actions variables.
+          # Do not set ANTHROPIC_API_KEY in this job; it overrides federation.
+          anthropic_federation_rule_id: ${{ vars.CLAUDE_FEDERATION_RULE_ID }}
+          anthropic_organization_id: ${{ vars.CLAUDE_ORGANIZATION_ID }}
+          anthropic_service_account_id: ${{ vars.CLAUDE_SERVICE_ACCOUNT_ID }}
+          anthropic_workspace_id: ${{ vars.CLAUDE_WORKSPACE_ID }}
           claude_args: >-
             --model ${{ inputs.model }}
             --max-turns ${{ inputs.max_turns }}
