@@ -190,11 +190,14 @@ async function main() {
     tools,
     messages: [{ role: "user", content: userText }],
     max_iterations: maxIterations,
+    // Each turn streams: the SDK requires it for a max_tokens this large.
+    stream: true,
   });
 
   const usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0, turns: 0 };
   let last = null;
-  for await (const message of runner) {
+  for await (const turn of runner) {
+    const message = await turn.finalMessage();
     last = message;
     usage.turns += 1;
     usage.input += message.usage.input_tokens ?? 0;
