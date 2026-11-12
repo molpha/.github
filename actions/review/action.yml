@@ -1,0 +1,50 @@
+name: Claude PR review
+description: Reviews a pull request with the Claude API (workload identity federation) and posts one review with inline comments.
+inputs:
+  model:
+    description: Claude model ID
+    default: claude-sonnet-5-5
+  effort:
+    description: low | medium | high | xhigh | max
+    default: medium
+  max_iterations:
+    description: Upper bound on API requests in the review loop
+    default: "30"
+  pr:
+    description: Pull request number (defaults to the triggering pull request)
+    default: ""
+  github_token:
+    description: Token that can read the PR and post reviews (pull-requests write)
+    default: ${{ github.token }}
+  federation_rule_id:
+    required: true
+  organization_id:
+    required: true
+  service_account_id:
+    required: true
+  workspace_id:
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v7
+      with:
+        node-version: 22
+
+    - name: Install reviewer
+      shell: bash
+      run: npm ci --omit=dev --no-audit --no-fund --prefix "$GITHUB_ACTION_PATH"
+
+    - name: Review
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
+        REVIEW_PR: ${{ inputs.pr }}
+        REVIEW_MODEL: ${{ inputs.model }}
+        REVIEW_EFFORT: ${{ inputs.effort }}
+        REVIEW_MAX_ITERATIONS: ${{ inputs.max_iterations }}
+        ANTHROPIC_FEDERATION_RULE_ID: ${{ inputs.federation_rule_id }}
+        ANTHROPIC_ORGANIZATION_ID: ${{ inputs.organization_id }}
+        ANTHROPIC_SERVICE_ACCOUNT_ID: ${{ inputs.service_account_id }}
+        ANTHROPIC_WORKSPACE_ID: ${{ inputs.workspace_id }}
+      run: node "$GITHUB_ACTION_PATH/src/review.mjs"
