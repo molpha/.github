@@ -1,0 +1,39 @@
+# Reusable workflow: answer `@claude` mentions on pull requests and issues.
+# Read-only in this first version: it can read the repo and comment, not push.
+name: Claude mention
+
+on:
+  workflow_call:
+    inputs:
+      model:
+        description: Claude model ID
+        type: string
+        default: claude-sonnet-5-5
+      max_turns:
+        description: Upper bound on agent turns for one reply
+        type: string
+        default: "30"
+    secrets:
+      ANTHROPIC_API_KEY:
+        required: true
+
+jobs:
+  mention:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: >-
+            --model ${{ inputs.model }}
+            --max-turns ${{ inputs.max_turns }}

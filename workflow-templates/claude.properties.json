@@ -1,0 +1,6 @@
+{
+  "name": "Claude PR review",
+  "description": "Automatic Claude review of pull requests, plus @claude mentions.",
+  "iconName": "octicon-comment-discussion",
+  "categories": ["Code review"]
+}

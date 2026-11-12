@@ -1,0 +1,45 @@
+# Reusable workflow: automatic Claude review of a pull request.
+# Called from each repo's .github/workflows/claude.yml. Read-only: the job can
+# comment on the PR but cannot edit code or run shell commands.
+name: Claude review
+
+on:
+  workflow_call:
+    inputs:
+      model:
+        description: Claude model ID
+        type: string
+        default: claude-sonnet-5-5
+      max_turns:
+        description: Upper bound on agent turns for one review
+        type: string
+        default: "30"
+    secrets:
+      ANTHROPIC_API_KEY:
+        required: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          plugin_marketplaces: https://github.com/anthropics/claude-plugins-official.git
+          plugins: code-review@claude-plugins-official
+          use_sticky_comment: true
+          prompt: /code-review:code-review --comment ${{ github.repository }}/pull/${{ github.event.pull_request.number }}
+          claude_args: >-
+            --model ${{ inputs.model }}
+            --max-turns ${{ inputs.max_turns }}
+            --allowedTools "mcp__github_inline_comment__create_inline_comment"
